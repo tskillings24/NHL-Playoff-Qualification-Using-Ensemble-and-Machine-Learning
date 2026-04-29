@@ -19,9 +19,9 @@ A common debate in sports analytics is how much weight to give to October and No
 The project progressed from simple baseline classifiers to a sophisticated Stacking Ensemble.
 * **Features:** Goal Differential, Points Per Game, Roster Size, and engineered Injury Impact scores.
 * **Outcome:** Playoff Qualification (Binary: Yes/No)
-* **Pre-processing:** Removal of possibe data leakage and correlation filtering (threshold > 0.9) to ensure model stability and proper fitting.
+* **Pre-processing:** Removal of possible data leakage and correlation filtering (threshold > 0.9) to ensure model stability and reliable modeling.
 
-### **Model Evolution & Performance**
+### **Model Performance**
 The project evaluated several architectures, finding that a stacking model best captured the non-linear nature of NHL standings.
 
 | Model | ROC-AUC | Accuracy | F1-Score |
@@ -31,13 +31,13 @@ The project evaluated several architectures, finding that a stacking model best 
 | Stacking Ensemble (Final)| 0.84 | 0.77 | 0.80 |
 
 ### **Key Findings**
-* **Stacking Success:** Combining Random Forest, SVM, and XGBoost into a Logistic Regression meta-learner provided a 6% lift in AUC over baseline models.
-* **Predictive Dominance:** Goal Differential was the strongest early-season predictor, significantly outweighing power-play percentages or roster size.
-* **Injury Resilience:** While injury-related features showed moderate impact, team depth (roster size) in the first 20 games served as a secondary stabilizer for playoff-bound teams.
-
+* **Ensemble Performance:** The stacking model improved ROC-AUC by +0.06 over baseline logistic regression.
+* **Top Predictor:** Goal Differential was the most influential early-season feature.
+* **Injury Impact:** Injury features showed moderate influence, while roster size acted as a stabilizing factor.
+* 
 ## **Repository Structure**
 
-1. **`Notebooks/`** – Chronological workflow:
+1. **`Notebooks`** – Chronological workflow:
    - `1_data_cleaning_eda.ipynb` – Pipeline for filtering the "20-game window" and handling historical data inconsistencies.
    - `2_feature_analysis.ipynb` – Statistical validation of feature importance and distribution analysis.
    - `3_baseline_models.ipynb` – Evaluation of KNN, Naive Bayes, Decision Trees, and standard Logistic Regression.
@@ -45,23 +45,30 @@ The project evaluated several architectures, finding that a stacking model best 
    - `5_xgboost.ipynb` – Implementation of Gradient Boosting with class imbalance handling.
    - `6_stacking_model.ipynb` – The final production model and ensemble architecture.
  
-2. **`data/`** – Contains `fake_nhl_dataset.csv`. This synthetic data mirrors the general structure of the private master dataset used in the full analysis to allow for pipeline replication.
+2. **`data`** – Contains `fake_nhl_dataset.csv`. This synthetic data mirrors the general structure of the private master dataset used in the full analysis to allow for pipeline replication.
 
-3. **`visuals/`** – High-resolution outputs:
-   - **ROC Curves:** Visualizing the trade-off between sensitivity and specificity. in the XGBoost Model
+3. **`visuals`** – High-resolution outputs:
+   - **ROC Curves:** Visualizing the trade-off between sensitivity and specificity with the XGBoost Model
    - **Feature Importance:** Ranking the 20-game metrics by predictive importance.
    - **Model Comparison Bar Chart:** Benchmarking all 7+ models.
-   - **EDA:** Startictaicl spreads of goal differential, goals for, goals against, and injury rate
+   - **EDA:** Statistical spreads of goal differential, goals for, goals against, and injury rate
 
 ## **Strategic & Professional Implications**
 This analysis supports the front-office concept that:
-* The first quarter of the season is highly influencial on post season success
+* The first quarter of the season is highly influential on post season success
 * Goal Differential is a more reliable "success signal" than raw points early in the season.
 * Management can use these early thresholds to make "Buyer vs. Seller" decisions well ahead of the trade deadline.
 
 ## **Important Limitations**
 * **Data Privacy:** The primary dataset is proprietary; results were validated on private data, while the repo uses a synthetic proxy.
-* **Roster Volatility:** Models do not currently account for mid-season superstar trades or goaltending changes occurring after the 20-game mark. The model focuses on soley the frst 20 games.
+* **Roster Volatility:** Models do not currently account for mid-season trades or goaltending changes occurring after the 20-game mark. The model focuses on solely the first 20 games.
+
+## How to Run
+1. Clone the repository
+2. Install dependencies:
+   pip install -r requirements.txt
+3. Run notebooks in order:
+   Notebooks/1_data_cleaning_eda.ipynb → 6_stacking_model.ipynb
 
 
 ### Full Report
