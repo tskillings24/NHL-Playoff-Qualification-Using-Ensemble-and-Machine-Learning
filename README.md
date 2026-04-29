@@ -64,6 +64,10 @@ This analysis supports the front-office concept that:
 * **Roster Volatility:** Models do not currently account for mid-season superstar trades or goaltending changes occurring after the 20-game mark. The model focuses on soley the frst 20 games.
 
 
-### **Contact**
-**Terah Skillings** Regis University – M.S. Data Science  
-GitHub: [tskillings24](https://github.com/tskillings24)
+### Full Report
+
+For full methodology, background research, and discussion of results, see:
+
+```
+docs/Practicum_II_paper.pdf
+```
